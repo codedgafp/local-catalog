@@ -1,0 +1,51 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_catalog/training-catalog-popin
+
+    This template renders a training catalog popin.
+
+    Example context (json):
+    {
+        "session" : {
+                "selectedtraininglength" : 10,
+                "selectedtrainingname": [
+                    trainingname1,
+                    trainingname2,
+                    ...
+                ]
+        }
+    }
+}}
+<div id="modal-export-training" {{^ selectedtraininglength }}class="warning-text"{{/ selectedtraininglength }}>
+    {{# selectedtraininglength }}
+        <div id="modal-export-training-number">
+            {{ selectedtraininglength }} {{# str }} selecttrainingtoexport, local_catalog {{/str}}
+        </div>
+        <div id="modal-export-training-list">
+            {{# selectedtrainingname }}
+                <div>
+                    <div class="checkmark"></div>
+                    {{ . }}
+                </div>
+            {{/selectedtrainingname}}
+        </div>
+    {{/ selectedtraininglength }}
+    {{^ selectedtraininglength }}
+        {{# str }} pleaseselecttraining, local_catalog {{/str}}
+    {{/ selectedtraininglength }}
+</div>

@@ -1,0 +1,87 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+<div class="local-catalog">
+    {{#trainingscount}}
+        <div class="trainings-search">
+            <input type="text" name="search" id="search" title="{{# str}}search_placeholder, local_mentor_specialization{{/str}}"
+                   placeholder="{{# str}}search_placeholder, local_mentor_specialization{{/str}}">
+            <button id="search-button" class="btn btn-primary" aria-label="Rechercher une formation"><i class="icon fa fa-search"></i></button>
+        </div>
+
+        <div id="trainings-filters" class="trainings-filters">
+
+            <div class="mentor-accordion" id="collections-filter">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" aria-expanded="true">Collections</button>
+                        </h2>
+                        <p class="header-right">-</p>
+                    </div>
+                    <div class="collapse show" data-collapse-mobile-size="767" data-collapse-mobile-action="close">
+                        <div class="card-body">
+                            <ul id="collections"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentor-accordion" id="entities-filter">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" aria-expanded="true">Proposée par</button>
+                        </h2>
+                        <p class="header-right">-</p>
+                    </div>
+                    <div class="collapse show" data-collapse-mobile-size="767" data-collapse-mobile-action="close">
+                        <div class="card-body">
+                            <ul id="entities"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trainings-grid">
+            <h2 id="trainings-found"><span id="trainings-count" aria-live="polite"></span></h2>
+            <form action="" method="post" id="trainings-export" target="_blank">
+                <button type="submit" title="{{# str}} toexportbuttontitle, local_catalog {{/str}}">
+                    {{# pix }} up-right-from-square, local_catalog {{/ pix }} {{# str}} toexport, local_catalog {{/str}} (<span id="trainings-export-number"></span>)
+                </button>
+            </form>
+            <div class="" id="trainings-tile">
+                {{> local_mentor_specialization/catalog/training-tile }}
+            </div>
+        </div>
+
+    {{/trainingscount}}
+
+    {{^trainingscount}}
+        <p class="no-trainings-message">{{# str}}no_trainings, local_catalog{{/str}}</p>
+    {{/trainingscount}}
+
+
+</div>
+
+<!-- CATALOG DATA -->
+<p id="available-trainings" style="display: none">{{available_trainings}}</p>
+<p id="trainings-dictionnary" style="display: none">{{trainings_dictionnary}}</p>
+{{#js}}
+    require(['theme_mentor/common']);
+    addClearFixToMainTag();
+{{/js}}

@@ -1,0 +1,737 @@
+@pictureheight: 163px;
+
+@picturewidthmobile: 325px;
+@pictureheightmobile: 217px;
+
+@maincolor-default: #3a3a3a;
+
+#page-local-catalog-index {
+
+  &:not(.notloggedin) {
+    div[data-region="drawer-toggle"] {
+      display: none !important;
+    }
+  }
+
+  #page {
+    overflow: visible!important;
+  }
+
+  #region-main {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding-top: 17px;
+
+    @media (max-width: 1024px) {
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-top: 0;
+    }
+  }
+
+  .local-catalog {
+
+    max-width: 1278px;
+    margin: auto;
+    position: relative;
+
+    @media (min-width: 1915px) {
+      max-width: 1817px;
+    }
+
+    #loader {
+      text-align: center;
+    }
+
+    .no-trainings-message {
+      margin: 0 auto;
+      width: 50%;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .trainings-search {
+      text-align: right;
+      position: absolute;
+      border-radius: 4px 4px 0 0;
+      right: 22px;
+      z-index: 1;
+
+      @media (max-width: 1024px) {
+        text-align: center;
+        right: 0;
+      }
+
+      @media (max-width: 767px) {
+        display: -webkit-flex;
+        text-align: center;
+        position: relative;
+        right: auto;
+      }
+
+      #search {
+        width: 386px;
+        background-color: #f8f8f8;
+        border-top-right-radius: 0;
+        float: left;
+        height: 40px;
+
+        @media (max-width: 1024px) {
+          max-width: 300px;
+        }
+
+        @media (max-width: 767px) {
+          max-width: none;
+          width: ~"calc( 100% - 44px)";
+        }
+
+        &:focus-visible {
+          border-radius: 0;
+          border: 2px solid #2a7ffe !important;
+          outline: none;
+        }
+
+      }
+
+      #search-button {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        border-top-right-radius: 4px !important;
+        padding: 0 !important;
+        float: right;
+
+        @media (max-width: 767px) {
+          margin-left: -4px;
+        }
+
+        .icon {
+          margin: 0;
+          font-size: 18px !important;
+        }
+      }
+
+      #search, #search-button {
+        border-bottom: 2px solid #000091 !important;
+        vertical-align: middle;
+
+        @media (max-width: 767px) {
+          float: none;
+        }
+      }
+    }
+
+    #trainings-filters {
+      width: 252px;
+      float: left;
+      margin-left: 20px;
+      margin-right: 40px;
+      min-height: 300px;
+
+      @media (max-width: 1247px) {
+        margin-left: 0;
+        margin-right: 20px;
+      }
+
+      @media (max-width: 767px) {
+        float: none;
+        width: 100%;
+        min-height: 0;
+        margin-top: 20px;
+      }
+
+      ul#collections, ul#entities {
+        padding: 0;
+        margin: 0;
+      }
+
+      #entities-filter {
+
+        @media (max-width: 1247px) {
+          border-bottom: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        .collapse {
+          .card-body {
+            border-bottom: none;
+          }
+        }
+      }
+
+      .mentor-accordion {
+        .card {
+          background: transparent;
+
+          .card-header {
+            align-items: baseline;
+            border-bottom: none;
+            padding-top: 7px;
+            padding-bottom: 4px;
+
+            h2 {
+              .btn-link {
+                font-size: 16px;
+                color: #383838;
+              }
+            }
+          }
+        }
+
+        .card-body {
+          padding-top: 0;
+        }
+
+        .collapse {
+          &.show {
+            .card-body {
+              border-bottom: 0;
+            }
+          }
+        }
+      }
+
+      li {
+        list-style-type: none;
+
+        button {
+          text-align: left;
+          padding: 2px 8px 6px 8px;
+          border-radius: 13px;
+          background-color: #e3e3fd;
+          color: #000091;
+          font-size: 12px;
+          line-height: 1.67;
+          margin-bottom: 10px;
+          margin-right: 10px;
+          display: inline-block;
+          border: none;
+          position: relative;
+
+          .nbresults {
+            margin-left: 3px;
+          }
+
+          .cross {
+            display: none;
+            border-radius: 7px;
+            background: #fff;
+            position: absolute;
+            top: -3px;
+            right: -4px;
+            color: #000091;
+            border: 1px solid #000091;
+            width: 14px;
+            height: 14px;
+            text-align: center;
+            line-height: 8px;
+            font-size: 12px;
+          }
+
+          &.selected {
+            color: #fff;
+            background-color: #000091;
+            outline: 2px solid #0a76f6;
+            outline-offset: 2px;
+
+            .cross {
+              display: block;
+            }
+          }
+
+          &:focus,
+          &:focus-visible {
+            border: 2px solid #2a7ffe !important;
+            outline: none;
+          }
+        }
+      }
+
+    }
+
+    .trainings-grid {
+      position: relative;
+      float: left;
+      border-left: 1px solid rgba(0, 0, 0, .125);
+      padding-left: 40px;
+      width: ~"calc( 100% - 332px)";
+
+      @media (max-width: 1247px) {
+        width: ~"calc( 100% - 272px)";
+        margin-top: 50px;
+      }
+
+      @media (max-width: 1024px) {
+        padding-left: 25px;
+      }
+
+      @media (max-width: 767px) {
+        float: none;
+        width: 100%;
+        border-left: none;
+        padding-left: 0;
+        text-align: center;
+        margin-top: 24px;
+      }
+
+      #trainings-found {
+        font-size: 16px;
+        color: #1e1e1e;
+        margin-bottom: 28px;
+        margin-top: 10px;
+        clear: both;
+
+        @media (max-width: 767px) {
+          margin-bottom: 45px;
+        }
+
+        .countnumber {
+          font-weight: bold;
+        }
+      }
+
+      #trainings-tile {
+        margin: 0;
+        max-width: 100%;
+
+        @media (min-width: 968px) and (max-width: 1247px) {
+          margin: auto;
+          width: 600px;
+        }
+
+        @media (min-width: 768px) and (max-width: 967px) {
+          text-align: center;
+        }
+
+        @media (max-width: 767px) {
+          text-align: left;
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          width: 580px;
+        }
+
+        @media (min-width: 614px) and (max-width: 767px) {
+          text-align: left;
+          margin-left: auto;
+          margin-right: auto;
+          width: 580px;
+        }
+
+        @media (max-width: 613px) {
+          text-align: center;
+        }
+
+        .training-tile {
+          position: relative;
+          width: 100%;
+          height: 163px;
+          max-width: none;
+          display: inline-block;
+          margin-right: 15px;
+          margin-bottom: 15px;
+          text-align: left;
+          padding: 0;
+          border: solid 1px #e5e5e5;
+          background: #fff;
+          box-sizing: content-box;
+
+          @media (min-width: 1915px) {
+            width: 710px;
+          }
+
+          @media (max-width: 1247px) {
+            width: 280px;
+            height: 333px;
+            margin-left: 5px;
+            margin-right: 5px;
+          }
+
+          &.hidden {
+            display: none;
+          }
+
+          &.even {
+            margin-right: 0;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:focus,
+          &:focus-within {
+            outline: none;
+
+            .training-tile-information {
+              background-color: #EEEEEE;
+            }
+          }
+
+          &:focus-visible {
+            outline: none;
+
+            .training-tile-information {
+              background-color: #EEEEEE;
+            }
+          }
+
+          .training-tile-thumbnail {
+            width: 245px;
+            height: 163px;
+            float: left;
+
+            @media (max-width: 1247px) {
+              width: 100%;
+              height: 187px;
+            }
+
+            .training-tile-thumbnail-resize {
+              background-size: cover;
+              width: 245px;
+              height: 163px;
+              background-repeat: no-repeat;
+              background-position: center;
+
+              @media (max-width: 1247px) {
+                width: 100%;
+                height: 187px;
+              }
+            }
+
+          }
+
+          .training-tile-information {
+            display: inline-block;
+            height: 163px;
+            width: ~"calc(100% - 245px)";
+            vertical-align: top;
+            padding: 16px;
+            position: relative;
+
+            @media (max-width: 1247px) {
+              width: 100%;
+              height: 146px;
+            }
+
+            .training-name {
+              width: ~"calc( 100% - 24px)";
+              margin: 0 0 3.9px;
+              font-size: 16px;
+              font-weight: bold;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.51;
+              letter-spacing: normal;
+              color: #161616;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+
+
+              @media (min-width: 1920px) {
+                width: 400px;
+              }
+
+              @media (max-width: 1247px) {
+                width: 100%;
+                margin-bottom: 8px;
+              }
+            }
+
+            .training-trainer {
+              width: ~"calc( 100% - 24px)";
+              font-size: 14px;
+              font-weight: normal;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.48;
+              letter-spacing: normal;
+              color: #3a3a3a;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+
+              @media (min-width: 1920px) {
+                width: 400px;
+              }
+
+              @media (max-width: 1247px) {
+                width: 100%;
+                display: block;
+                line-height: 1.71;
+
+                .separator {
+                  display: none;
+                }
+              }
+
+              .training-creator,
+              .training-producer {
+                @media (max-width: 1247px) {
+                  width: 100%;
+                  display: block;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 1;
+                }
+              }
+
+              .training-entityname,
+              .training-producer-shortname {
+                font-weight: bold;
+              }
+            }
+
+            .training-catchphrase {
+              width: ~"calc( 100% - 24px)";
+              font-size: 14px;
+              color: #3a3a3a;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2;
+
+              @media (min-width: 1920px) {
+                width: 400px;
+              }
+
+              @media (max-width: 1247px) {
+                display: none;
+              }
+            }
+
+            .fr-fi-arrow-right-line {
+              position: absolute;
+              bottom: 16px;
+              right: 16px;
+              color: #000091;
+
+              @media (max-width: 1247px) {
+                display: none;
+              }
+            }
+          }
+
+          .training-tile-export-selection {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            top: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            @media (max-width: 1247px) {
+              bottom: 0;
+              top: initial;
+            }
+
+            input[type='checkbox'] {
+              accent-color: #000091;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+      }
+
+      #trainings-export {
+        position: absolute;
+        right: 460px;
+        top: 9px;
+
+        button {
+          background-color: transparent;
+          color: #000091;
+          font-size: 16px;
+          border: none;
+          padding: 0;
+        }
+
+        @media (max-width: 1247px) {
+          right: 25px;
+        }
+
+        @media (max-width: 1024px) {
+          right: 0;
+        }
+
+        @media (max-width: 767px) {
+          top: 25px;
+          left: 0;
+        }
+
+        .icon {
+          margin-right: 6px;
+          margin-bottom: 4px;
+        }
+
+        &:focus,
+        &:focus-visible,
+        &:hover {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .edadmin-modal {
+    box-shadow: none;
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4050;
+    }
+
+    .modal-content {
+      position: fixed;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      width: 300px;
+      margin: auto;
+      border: none;
+      outline: 0;
+      background: #FFF;
+      z-index: 4100;
+      box-sizing: border-box;
+      box-shadow: 1px 2px 5px 0 rgba(30, 36, 69, 0.2);
+      border-radius: 10px;
+
+      .header {
+        background: @maincolor-default;
+        border-radius: 10px 10px 0px 0px;
+        text-align: center;
+        height: 44px;
+        line-height: 44px;
+        font-size: 23px;
+        padding-left: 8px;
+        position: relative;
+        color: #FFF;
+        text-transform: uppercase;
+      }
+
+      .modal-main-content {
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        div {
+          text-align: center;
+        }
+
+        .buttons {
+          font-size: 20px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+      }
+
+      .close {
+        float: right;
+        margin-right: 8px;
+        margin-top: 11px;
+        color: #FFF;
+        opacity: 1;
+        background-size: cover;
+        width: 15px;
+        height: 15px;
+        display: block;
+        cursor: pointer;
+        background-image: url("[[pix:format_edadmin|close]]");
+      }
+
+      select {
+        font-size: 20px;
+      }
+    }
+
+    .buttons {
+      margin-bottom: 10px;
+    }
+  }
+
+  #error-popup-modal {
+    .overlay {
+      z-index: 4050;
+    }
+
+    .modal-content {
+      min-width: 300px;
+      height: 250px;
+      z-index: 4100;
+
+      .modal-main-content {
+        box-sizing: border-box;
+        padding: 20px;
+        height: ~"calc( 100% - 40px)";
+
+        .message {
+          height: ~"calc(100% - 45px)";
+          overflow: auto;
+        }
+
+        .buttons {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  &.notloggedin {
+    .fixed-top {
+      div[data-region="drawer-toggle"] {
+        display: none !important;
+      }
+    }
+  }
+
+  #modal-export-training {
+    margin: 0 40px;
+
+    #modal-export-training-number {
+      padding-bottom: 15px;
+      font-weight: bold;
+    }
+
+    #modal-export-training-list {
+      & > div {
+        padding-bottom: 15px;
+
+        .checkmark {
+          display: inline-block;
+          width: 7px;
+          height: 13px;
+          border: solid #000091;
+          border-width: 0 2px 2px 0;
+          -webkit-transform: rotate(45deg);
+          -ms-transform: rotate(45deg);
+          -moz-transform: rotate(45deg);
+          -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+          margin-right: 10px;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    &.warning-text {
+      color: red;
+    }
+  }
+}

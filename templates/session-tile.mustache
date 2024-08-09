@@ -1,0 +1,124 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_catalog/session-tile
+
+    This template renders a training catalog.
+
+    Example context (json):
+    {
+        "session" : {
+                "id" : 1
+                "isenrol" : true / false,
+                "placesnotlimited" : true / false,
+                "isinprogress" : true / false,
+                "placesavailable" : 5,
+                "courseurl" : "http://mentor.gouv.fr/course/view.php?id=xxx",
+                "fullname" : "Session 1",
+                "onlinesession" : false / "4h30",
+                "presencesession" : false / "10h10",
+                "sessionpermanent" : true,
+                "sessionstartdate" : "18/03/22",
+                "sessionenddate" : "30/03/22",
+                "sessiononedaydate" : false
+        }
+    }
+}}
+
+<button
+        class="session
+            {{# preview }}
+                session-preview
+            {{/preview}}
+            {{#isenrol}}
+                is-enrol
+            {{/isenrol}}
+            {{^isenrol}}
+                {{#placesnotlimited}}
+                    {{# isinprogress }}
+                        in-progress
+                    {{/isinprogress}}
+                       available-enrol
+                {{/placesnotlimited}}
+                {{^placesnotlimited}}
+                    {{#placesavailable}}
+                        {{# isinprogress }}
+                            in-progress
+                        {{/isinprogress}}
+                        available-enrol
+                    {{/placesavailable}}
+                    {{^placesavailable}}
+                        complete
+                    {{/placesavailable}}
+                {{/placesnotlimited}}
+            {{/isenrol}}"
+        data-session-id="{{id}}"
+        title="{{fullname}}"
+>
+    <p class="font-weight-bold">
+        {{ fullname }}
+    </p>
+    <p class="session-time">
+        {{#onlinesession}}
+            {{# str }} online, local_catalog {{/str}} <span class="font-weight-bold">{{onlinesession}}</span>
+            {{#presencesession}}
+                - {{# str }} inpresence, local_catalog {{/str}} <span class="font-weight-bold">{{presencesession}}</span>
+            {{/presencesession}}
+        {{/onlinesession}}
+        {{^onlinesession}}
+            {{#presencesession}}
+                {{# str }} inpresence, local_catalog {{/str}} <span class="font-weight-bold">{{presencesession}}</span>
+            {{/presencesession}}
+        {{/onlinesession}}
+    </p>
+    <div class="session-footer">
+        <p class="session-access">
+            {{#sessionpermanent}}
+                {{# str }} permanentaccess, local_mentor_core {{/str}}
+            {{/sessionpermanent}}
+            {{^sessionpermanent}}
+                {{#sessionenddate}}
+                    {{#sessiononedaydate}}
+                        {{# str }} ondate, local_mentor_core, {{sessionstartdate}} {{/str}}
+                    {{/sessiononedaydate}}
+                    {{^sessiononedaydate}}
+                        {{# str }} fromto, local_mentor_core, { "from": "{{sessionstartdate}}", "to": "{{sessionenddate}}" } {{/str}}
+                    {{/sessiononedaydate}}
+                {{/sessionenddate}}
+                {{^sessionenddate}}
+                    {{# str }} fromdate, local_mentor_core, {{sessionstartdate}} {{/str}}
+                {{/sessionenddate}}
+            {{/sessionpermanent}}
+        </p>
+        {{#isenrol}}
+            <p class="tag tag-is-enrol">{{# str }} alreadyregistered, local_catalog {{/str}}</p>
+        {{/isenrol}}
+        {{^isenrol}}
+            {{#placesnotlimited}}
+                {{# pix }} arrow-right, local_catalog{{/ pix }}
+            {{/placesnotlimited}}
+            {{^placesnotlimited}}
+                {{#placesavailable}}
+                    {{# pix }} arrow-right, local_catalog{{/ pix }}
+                {{/placesavailable}}
+                {{^placesavailable}}
+                    <p class="tag tag-complete">{{# str }} complete, local_catalog {{/str}}</p>
+                {{/placesavailable}}
+            {{/placesnotlimited}}
+        {{/isenrol}}
+    </div>
+</button>

@@ -1,0 +1,206 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_catalog/training
+
+    This template renders a training catalog.
+
+    Example context (json):
+    {
+        "training": {
+            "id" : 1,
+            "name" : "training 1",
+            "title" : "training 1 (preview)",
+            "iscertifying": true,
+            "collectiontiles": [
+                "name": "Collection 1",
+                "color" : "rgba(255, 255, 255, 0)
+            ],
+            "entityfullname" : "Entity",
+            "producingorganizationlogo" : "http://mentor.gouv.fr/0/local_trainings/producerorganizationlogo/0/example.png"
+            "producingorganization" : "DGAFP",
+            "producingorganization" : "dgafp@gouv.fr",
+            "idsirh" : "SIRH10",
+            "teaserispicture" : true,
+            "teaser" : "http://mentor.gouv.fr/0/local_trainings/teaserpicture/0/example.png",
+            "catchphrase" : "Catch phrase 1",
+            "traininggoal" : "<p dir="ltr" style="text-align: left;">Training goal</p>",
+            "content" : "<p dir="ltr" style="text-align: left;">Content</p>",
+            "prerequisite" : "Prerequisite",
+            "skills" : "Skill 1<br />Skill 2",
+            "typicaljob" : "Typicaljob",
+            "licensetermsfullname" : "License term",
+            "sessions" : [{
+                "id" : 1
+                "isenrol" : true,
+                "placesnotlimited" : false,
+                "placesavailable" : 5,
+                "courseurl" : "http://mentor.gouv.fr/course/view.php?id=xxx",
+                "fullname" : "Session 1",
+                "onlinesession" : false / "4h30",
+                "presencesession" : false / "10h10",
+                "sessionpermanent" : true,
+                "sessionstartdate" : "18/03/22",
+                "sessionenddate" : "30/03/ 22",
+                "sessiononedaydate" : false
+            }],
+            "available_sessions': "[{"id" : 1,...}, {"id" : 2,...}, {"id" : 3,...}]"
+        }
+    }
+}}
+
+<div id="training-catalog-header">
+    <h1>
+        {{# title }}
+            {{ title }}
+        {{/title}}
+        {{^ title }}
+            {{ name }}
+        {{/title}}
+    </h1>
+    <div>
+        <button class="copy-link {{^ preview }}copy-training-link{{/ preview }}" data-trainingid="{{id}}">
+            <span aria-hidden="true">{{# pix }} copy-link, local_catalog, {{# str }} copy, local_mentor_core {{/str}}{{/ pix }}</span>
+            {{# str }} copyurl, local_mentor_core {{/str}}</button>
+        {{# iscertifying }}
+            <div class="certifying">
+                {{# pix }} certifying, local_catalog, {{# str }} certifying, local_mentor_core {{/str}}{{/ pix }}
+                <p>
+                    {{# str }} certifying, local_mentor_core {{/str}}
+                </p>
+            </div>
+        {{/ iscertifying }}
+    </div>
+</div>
+
+<div id="training-catalog-content">
+    <div class="creator-information">
+        <div class="collections row justify-content-start">
+            {{#collectiontiles}}
+                <p class="collection rounded-pill" style="background-color: {{color}}">{{name}}</p>
+            {{/collectiontiles}}
+        </div>
+        <p class="suggestedby {{^ hasproducerorganization }}no-producer{{/hasproducerorganization}}">
+            {{# str }} suggestedby, local_mentor_core, <span class="font-weight-bold">{{ entityfullname }} </span>{{/str}}
+        </p>
+        {{# hasproducerorganization }}
+            <div class="producer-card
+                {{# producingorganizationlogo}}
+                    has-logo
+                {{/ producingorganizationlogo }}
+                {{# producingorganization }}
+                    has-name
+                {{/ producingorganization }}
+                {{# contactproducerorganization }}
+                    has-contact
+                {{/ contactproducerorganization }}
+            ">
+                {{# producingorganizationlogo}}
+                    <img
+                            class="logo"
+                            src="{{ producingorganizationlogo }}"
+                            alt=""
+                        {{# producingorganization }}
+                            aria-label=""
+                        {{/ producingorganization }}
+                    >
+                {{/ producingorganizationlogo }}
+                {{# producingorganization }}
+                <div class="producer-data">
+                    <p class="name">{{# str }} producedby, local_catalog, <span class="font-weight-bold">{{ producingorganization }}</span> {{/str}}</p>
+                    {{^ contactproducerorganization }}
+                    </div>
+                    {{/contactproducerorganization}}
+                {{/ producingorganization }}
+                {{# contactproducerorganization }}
+                    {{^ producingorganization }}
+                    <div class="producer-data">
+                    {{/producingorganization}}
+                    <p class="contact">{{# str }} contact, local_catalog, <span class="font-weight-bold">{{ contactproducerorganization }} {{/str}}</p>
+                </div>
+                {{/ contactproducerorganization }}
+            </div>
+        {{/hasproducerorganization}}
+    </div>
+    <div class="teaser-part">
+        {{# idsirh }}
+            <p class="idsirh">{{# str }} idsirh, local_catalog, <span class="font-weight-bold">{{ idsirh }} {{/str}}</span></p>
+        {{/ idsirh }}
+        <div class="teaser">
+            {{# teaser }}
+                {{#teaserispicture}}
+                    <img class="picture" src="{{teaser}}" alt="">
+                {{/teaserispicture}}
+                {{^teaserispicture}}
+                    {{{teaser}}}
+                {{/teaserispicture}}
+            {{/teaser}}
+        </div>
+        {{# accesscourse }}
+            <a id="training-course-url" class="btn btn-primary" href="{{ courseurl }}">
+                Accéder à la formation
+            </a>
+        {{/accesscourse}}
+    </div>
+
+    <div id="training-objective">
+        <div class="details">
+            <p class="training-catchphrase">{{ catchphrase }}</p>
+            <div class="training-goal hide" id="trainingGoalContent">{{{ traininggoal }}}</div>
+            <div id="gradientmask" class="hide"></div>
+            <button
+                class="toggle-content hide" 
+                aria-expanded="false" 
+                aria-controls="trainingGoalContent">
+                {{# str }} readmore, local_catalog {{/str}}
+            </button>
+        </div>
+    </div>
+
+
+
+    <div id="session-catalog" {{^ hassession }}class="d-none"{{/ hassession }}>
+        {{^ singlessession }}
+            <div class="sessions-header">
+                <h2>
+                    {{# hasonesession }}
+                        {{# str }} session, local_catalog {{/str}}
+                    {{/hasonesession}}
+                    {{^ hasonesession }}
+                        {{# str }} sessions, local_catalog {{/str}}
+                    {{/hasonesession}}
+                </h2>
+                <button class="show-sessions more hide">{{# str }} seeallsessions, local_catalog {{/str}}</button>
+            </div>
+        {{/ singlessession }}
+        <div class="session-list {{# session }}single-session{{/ session }}">
+            {{# session }}
+                {{> local_catalog/session-single-tile }}
+            {{/ session }}
+            {{# sessions }}
+                {{> local_catalog/session-tile }}
+            {{/ sessions }}
+        </div>
+    </div>
+
+    {{# navbar }}
+        {{> local_mentor_core/moremenu/navbar }}
+    {{/navbar}}
+</div>
+
+<!-- TRAINING CATALOG DATA -->
+<p id="available-sessions" style="display: none">{{available_sessions}}</p>

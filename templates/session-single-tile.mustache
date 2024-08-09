@@ -1,0 +1,152 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_catalog/session-single-tile
+
+    This template renders a single session title
+
+    Example context (json):
+    {
+        "session" : {
+                "id" : 1
+                "isenrol" : true / false,
+                "placesnotlimited" : true / false,
+                "isinprogress" : true / false,
+                "placesavailable" : 5,
+                "courseurl" : "http://mentor.gouv.fr/course/view.php?id=xxx",
+                "fullname" : "Session 1",
+                "onlinesession" : false / "4h30",
+                "presencesession" : false / "10h10",
+                "sessionpermanent" : true,
+                "sessionstartdate" : "18/03/22",
+                "sessionenddate" : "30/03/22",
+                "sessiononedaydate" : false
+        }
+    }
+}}
+
+<div
+        class="session
+            {{# preview }}
+                session-preview
+            {{/preview}}
+            {{#isenrol}}
+                is-enrol
+            {{/isenrol}}
+            {{^isenrol}}
+                {{#placesnotlimited}}
+                    {{# isinprogress }}
+                        in-progress
+                    {{/isinprogress}}
+                       available-enrol
+                {{/placesnotlimited}}
+                {{^placesnotlimited}}
+                    {{#placesavailable}}
+                        {{# isinprogress }}
+                            in-progress
+                        {{/isinprogress}}
+                        available-enrol
+                    {{/placesavailable}}
+                    {{^placesavailable}}
+                        complete
+                    {{/placesavailable}}
+                {{/placesnotlimited}}
+            {{/isenrol}}"
+        data-session-id="{{id}}"
+        title="{{fullname}}"
+>
+    <p class="font-weight-bold">
+        <i class="fa fa-calendar-o icon" aria-hidden="true"></i>
+        {{#sessionpermanent}}
+            {{# str }} permanentaccess, local_mentor_core {{/str}}
+        {{/sessionpermanent}}
+        {{^sessionpermanent}}
+            {{#sessionenddate}}
+                {{#sessiononedaydate}}
+                    {{# str }} ondate, local_mentor_core, {{sessionstartdate}} {{/str}}
+                {{/sessiononedaydate}}
+                {{^sessiononedaydate}}
+                    {{# str }} fromto, local_mentor_core, { "from": "{{sessionstartdate}}", "to": "{{sessionenddate}}" } {{/str}}
+                {{/sessiononedaydate}}
+            {{/sessionenddate}}
+            {{^sessionenddate}}
+                {{# str }} fromdate, local_mentor_core, {{sessionstartdate}} {{/str}}
+            {{/sessionenddate}}
+            {{# placesavailable }} -
+                {{#placesavailablemoreone}}
+                    {{# str }} placesavailable, local_mentor_core, <span class="font-weight-bold">{{ placesavailable }}</span> {{/str}}
+                {{/placesavailablemoreone}}
+                {{^placesavailablemoreone}}
+                    {{# str }} placeavailable, local_mentor_core, <span class="font-weight-bold">{{ placesavailable }}</span> {{/str}}
+                {{/placesavailablemoreone}}
+            {{/ placesavailable }}
+        {{/sessionpermanent}}
+    </p>
+
+    {{#onlinesession}}
+        <p>
+            <i class="fa fa-clock-o icon" aria-hidden="true"></i>{{# str }} onlineduration, local_catalog, <span class="font-weight-bold">{{ onlinesession }}</span>{{/str}}
+            {{#presencesession}}
+                - {{# str }} presenceduration, local_catalog, <span class="font-weight-bold">{{presencesession}}</span> {{/str}}
+            {{/presencesession}}
+        </p>
+    {{/onlinesession}}
+    {{^onlinesession}}
+        {{#presencesession}}
+            <p><i class="fa fa-clock-o icon" aria-hidden="true"></i>{{# str }} presenceduration, local_catalog, <span class="font-weight-bold">{{presencesession}}</span> {{/str}}
+            </p>
+        {{/presencesession}}
+    {{/onlinesession}}
+
+    <p><i class="fa fa-user-o icon" aria-hidden="true"></i>{{# str }} targetaudience, local_catalog {{/str}} : <span class="font-weight-bold">{{ publiccible }}</span></p>
+
+    <p><i class="fa fa-users icon" aria-hidden="true"></i>{{# str }} coaching, local_catalog {{/str}} : <span class="font-weight-bold">{{ accompaniment }}</span></p>
+
+    {{# location }}
+        <p><i class="fa fa-map-marker icon" aria-hidden="true"></i>{{# str }} location, local_catalog {{/str}} : <span class="font-weight-bold">{{ location }}</span></p>
+    {{/ location }}
+
+    {{# organizingstructure }}
+        <p><i class="fa fa-university icon" aria-hidden="true"></i>{{# str }} organizingstructure, local_catalog {{/str}} : <span class="font-weight-bold">{{ organizingstructure
+        }}</span>
+        </p>
+    {{/organizingstructure}}
+
+    {{# isenrol }}
+        {{# isopenedregistration }}
+            <p><i class="fa fa-exclamation-triangle icon" aria-hidden="true"></i>{{# str }} sessionnotstarted, local_catalog {{/str}}</p>
+        {{/ isopenedregistration }}
+    {{/isenrol}}
+
+    {{# hasaccess }}
+        <a id="confirm-move-session" class="btn btn-primary" href="{{ courseurl }}">{{# str }} access, local_catalog {{/ str }}</a>
+    {{/ hasaccess }}
+
+    {{# isselfenrolment }}
+        {{# hasselfregistrationkey }}
+            <div id="enrolmentkey-container">
+                <label><i class="fa fa-key icon" aria-hidden="true"></i>{{# str }} enrolmentkey, local_catalog {{/str}} : </label><input type="text" id="enrolmentkey"/>
+            </div>
+        {{/hasselfregistrationkey}}
+        <div class="enrolment-warning"></div>
+        <button id="confirm-move-session" class="btn btn-primary">{{# str }} registration, local_catalog {{/ str }}</button>
+    {{/ isselfenrolment }}
+
+    {{# isotherenrolement }}
+        {{{ message }}}
+    {{/ isotherenrolement }}
+</div>
