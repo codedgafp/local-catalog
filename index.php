@@ -80,6 +80,14 @@ $PAGE->requires->strings_for_js(
     , 'local_catalog'
 );
 
+$PAGE->requires->strings_for_js(
+    [
+        'notification_button',
+        'subscription_management'
+    ]
+    , 'theme_mentor'
+);
+
 // Setting header page.
 $PAGE->set_heading(new lang_string('catalogtitle', 'local_catalog'));
 echo $OUTPUT->header();

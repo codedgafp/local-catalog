@@ -15,6 +15,11 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 <div class="local-catalog">
+
+    {{#showNotificationButton}}
+           {{> theme_boost/notification_button }}
+    {{/showNotificationButton}}     
+
     {{#trainingscount}}
         <div class="trainings-search">
             <input type="text" name="search" id="search" title="{{# str}}search_placeholder, local_mentor_specialization{{/str}}"
@@ -81,7 +86,12 @@
 <!-- CATALOG DATA -->
 <p id="available-trainings" style="display: none">{{available_trainings}}</p>
 <p id="trainings-dictionnary" style="display: none">{{trainings_dictionnary}}</p>
+
 {{#js}}
-    require(['theme_mentor/common']);
-    addClearFixToMainTag();
+    require(['theme_mentor/common'], function(common) {
+    common.addClearFixToMainTag();
+    });
+     require(['theme_mentor/notification'], function(notif) {
+    notif.init();
+    });
 {{/js}}

@@ -180,7 +180,6 @@ define([
 
             // Trigger click event to available enrol and enrol session tile.
             $('button.session.available-enrol, button.session.is-enrol, #confirm-move-session').click(function (e) {
-
                 // Not use event if is preview.
                 if ($(e.currentTarget).hasClass('session-preview')) {
                     return;
@@ -223,6 +222,11 @@ define([
                     return;
                 }
                 var sessionData = that.getSessionDataById(sessionId);
+
+                if(that.sessionData && that.sessionData.length == 1) {
+                    that.enrolmentToSession(sessionData);
+                    return;
+                }
 
                 format_edadmin.ajax_call({
                     url: M.cfg.wwwroot + '/local/catalog/ajax/ajax.php',

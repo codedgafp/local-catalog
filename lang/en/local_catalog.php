@@ -137,6 +137,14 @@ $string['exportpdfformat'] = 'Exporter au format PDF';
 $string['selecttrainingtoexport'] = 'formation(s) sélectionnée(s) pour l\'export';
 $string['pleaseselecttraining'] = 'Veuillez sélectionner au moins une formation à exporter.';
 $string['nopermissions'] = 'Vous n’avez pas les les permissions requises pour accéder à cette page';
+$string['invaliddatausernotif'] = 'Notifications utilisateurs: données invalides';
+$string['invaliddatausernotifpage'] = 'Notifications utilisateurs: page non valide';
 
 // Capabilities
 $string['catalog:offeraccess'] = 'Donne accès à l\'offre de formation';
+
+
+// Customized notifications
+$string['usercollectionnotif:sucess'] = "Les notifications ont été mises à jour avec succès.";
+
+$string['subscription_management_text'] = 'Vous serez informés chaque semaine par mél des nouvelles sessions disponibles dans une collection.';
