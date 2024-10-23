@@ -52,18 +52,17 @@ try {
 if ($sessions !== false) {
     $templaterederer = $renderer->display($training->convert_for_template(), $sessions);
     $title = $training->name;
+    $PAGE->set_title($title);
+    $PAGE->set_heading($title);
+    $PAGE->navbar->add($title, $url);
 } else {
-    $title = get_string('notaccesstraining', 'local_catalog');
     $templaterederer = $renderer->not_access(get_string('notaccesstraining', 'local_catalog'));
 }
-
-$PAGE->set_title($title);
-$PAGE->set_heading($title);
 
 // Set navbar.
 $PAGE->navbar->ignore_active();
 $PAGE->navbar->add(get_string('catalogtitle', 'local_catalog'), new moodle_url('/local/catalog/index.php'));
-$PAGE->navbar->add($title, $url);
+
 
 echo $OUTPUT->header();
 
