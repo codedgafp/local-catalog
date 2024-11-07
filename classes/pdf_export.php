@@ -261,24 +261,13 @@ class pdf_export extends \TCPDF {
         $this->setHtmlVSpace($tagvs);
         $this->setCellHeightRatio(1.4);
 
-        $html = '<p>Mentor, une offre de formation disponible et évolutive :</p>
-                <ul>
-                    <li>' . count(local_mentor_specialization_get_collections()) . ' collections pour se former sur les domaines transverses</li>
-                    <li>Un enrichissement permanent issu des contributions de la communauté interministérielle</li>
-                    <li>Une offre dans les domaines métiers portée par votre structure de rattachement</li>
-                </ul>
-        ';
-
+        $html = '<p>Les éléments des pages suivantes sont extraits de l\'offre de formation de la plateforme interministérielle Mentor en date du '.date("d/m/Y").' .</p>
+ 
+        <p>Cette offre évolue en continu avec des contributions de toute la communauté interministérielle.</p>
+      
+        <p>Pour plus de compléments, n\'hésitez pas à contacter le référent Mentor de votre administration <a href="https://mentor.gouv.fr/local/staticpage/view.php?page=contact">(page de contact)</a>.</p>';
         $this->setY(48);
         $this->writeHTMLCell(150, '', '', $this->getY(), $html, 0, 1);
-
-        $html = '<p>Les éléments des pages suivantes sont extraits de l\'offre de formation Mentor dont la version à jour est 
-        disponible sur :
-         <br/><a href="https://mentor.gouv.fr/offre">https://mentor.gouv.fr/offre</a></p>
-            <p>Pour plus de compléments, n\'hésitez pas à contacter votre conseiller formation.</p>
-        ';
-
-        $this->writeHTMLCell(170, '', '', $this->getY() + 5, $html, 0, 1);
     }
 
     /**
