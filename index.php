@@ -82,7 +82,7 @@ $PAGE->requires->strings_for_js(
 
 $PAGE->requires->strings_for_js(
     [
-        'notification_button',
+        'notification_catalog',
         'subscription_management'
     ]
     , 'theme_mentor'

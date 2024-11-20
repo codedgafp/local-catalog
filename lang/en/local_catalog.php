@@ -147,4 +147,4 @@ $string['catalog:offeraccess'] = 'Donne accès à l\'offre de formation';
 // Customized notifications
 $string['usercollectionnotif:sucess'] = "Les notifications ont été mises à jour avec succès.";
 
-$string['subscription_management_text'] = 'Vous serez informés chaque semaine par mél des nouvelles sessions disponibles dans une collection.';
+$string['catalog_subscription_management_text'] = 'Vous serez informés chaque semaine par mél des nouvelles sessions disponibles dans une collection.';
