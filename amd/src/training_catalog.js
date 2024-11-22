@@ -27,6 +27,9 @@ define([
             this.initTrainingSession();
 
             this.initSessionTileEvent();
+            
+            this.saveTrainingId();
+            
         },
         /**
          * Init copy training catalog link event.
@@ -347,6 +350,20 @@ define([
                     }
                 }
             });
+        },
+        /**
+         * Save training id for scroll when back to catalog
+         */
+        saveTrainingId : function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const trainingId = urlParams.get('trainingid');
+            const catalogUrl =  `${M.cfg.wwwroot}/local/catalog/index.php`;
+            if (document.referrer != catalogUrl){
+                return;
+            }
+            if (trainingId) {
+                sessionStorage.setItem('selectedTrainingIdCatalog', trainingId);
+            }
         }
     };
 

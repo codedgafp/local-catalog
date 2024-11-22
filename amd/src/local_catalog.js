@@ -85,6 +85,10 @@ define([
                 that.resetAll();
             });
             
+            // Call restore function when page loads
+            $(document).ready(function() {
+                that.scrollToTraining();
+            });
         },
 
         /**
@@ -859,8 +863,42 @@ define([
             this.setFirstTileFocus();
 
             this.updateLoader();
+        },
+        /**
+         * Scroll to a training on the page, based on its id
+         */
+        scrollToTraining: function(trainingId = null) {
+            if(!trainingId){
+                trainingId = sessionStorage.getItem('selectedTrainingIdCatalog');
+            }
+            
+            const trainingUrl = M.cfg.wwwroot + `/local/catalog/pages/training.php?trainingid=${trainingId}`;
+            if(!trainingId || document.referrer !== trainingUrl){
+                return;
+            }
+
+            
+            let trainingLink = document.querySelector(`a[data-training-id="${trainingId}"]`);
+            
+            const originalAjaxReady = $(window).data('ajaxready');
+            $(window).data('ajaxready', true);
+
+            // Limit the loop in case of error
+            for (let index = 0; trainingLink.classList.contains('hidden') && index < 1000; index++) {
+                if($('.training-tile:not(.hidden)').length > 0){
+                    localCatalog.initOffset += localCatalog.nbResultsPerScroll;
+                    this.searchWithFilters();
+                }
+            }
+            $(window).data('ajaxready', originalAjaxReady); 
+            
+            if (trainingLink && !trainingLink.classList.contains('hidden')) {
+                trainingLink.scrollIntoView({ behavior: 'smooth', block: 'center'});
+            }else{
+                console.error(`TRAINING NOT FOUND, ID TRAINING ${trainingId}`)
+            }
         }
-    };
+    }
 
     // Add object to window to be called outside require.
     window.localCatalog = localCatalog;
