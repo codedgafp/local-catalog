@@ -52,6 +52,8 @@ define([
             var that = this;
             this.trainingsDictionnary = this.getDictionnary();
 
+            // Restore filter cookies
+            this.restoreCookieState();
             // Search with preset search input and filter with preset filters.
             this.searchWithFilters();
 
@@ -783,6 +785,48 @@ define([
                     title: M.util.get_string('exportpdfformat', 'local_catalog'),
                     buttons: buttons
                 });
+        
+        },
+        /**
+         * Restore search and filter state from cookies
+        */
+        restoreCookieState: function() {
+            // Restore search text from cookies
+            var savedSearch = cookie.read('catalogSearch');
+            if (savedSearch) {
+                try {
+                    savedSearch = JSON.parse(savedSearch);
+                    if (savedSearch) {
+                        $('#search').val(savedSearch);
+                    }
+                } catch (e) {
+                    console.error('Error parsing saved search', e);
+                }
+            }
+
+            // Restore filters from cookies
+            var savedFilters = cookie.read('catalogFilters');
+            if (savedFilters) {
+                try {
+                    savedFilters = JSON.parse(savedFilters);
+                    if (savedFilters && 
+                        (savedFilters.collections.length > 0 || savedFilters.entities.length > 0)) {
+                        
+                        this.selectedFilters = savedFilters;
+                        savedFilters.collections.forEach(function(collection) {
+                            $(`#collections button[data-identifier="${collection}"]`).addClass('selected');
+                        });
+
+                        savedFilters.entities.forEach(function(entity) {
+                            $(`#entities button[data-identifier="${entity}"]`).addClass('selected');
+                        });
+
+                        this.searchWithFilters();
+                    }
+                } catch (e) {
+                    console.error('Error parsing saved filters', e);
+                }
+            }
         }
     };
 
