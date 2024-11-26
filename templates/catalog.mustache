@@ -16,16 +16,31 @@
 }}
 <div class="local-catalog">
 
-    {{#showNotificationButton}}
-           {{> theme_boost/notification_button }}
-    {{/showNotificationButton}}     
+    <div class="row justify-content-end">
+        <div class="col-2">
+            <form action="" method="post" id="trainings-export" target="_blank">
+                <button type="submit" title="{{# str}} toexportbuttontitle, local_catalog {{/str}}">
+                    {{# pix }} up-right-from-square, local_catalog {{/ pix }} {{# str}} toexport, local_catalog {{/str}} (<span id="trainings-export-number"></span>)
+                </button>
+            </form>
+        </div>
+        {{#showNotificationButton}}
+            {{> theme_boost/notification_button }}
+        {{/showNotificationButton}}     
+    </div>
 
     {{#trainingscount}}
-        <div class="trainings-search">
-            <input type="text" name="search" id="search" title="{{# str}}search_placeholder, local_mentor_specialization{{/str}}"
-                   placeholder="{{# str}}search_placeholder, local_mentor_specialization{{/str}}">
-            <button id="search-button" class="btn btn-primary" aria-label="Rechercher une formation"><i class="icon fa fa-search"></i></button>
-        </div>
+            <div class="trainings-search">
+                <input type="text" name="search" id="search" title="{{# str}}search_placeholder, local_mentor_specialization{{/str}}"
+                    placeholder="{{# str}}search_placeholder, local_mentor_specialization{{/str}}">
+                <button id="search-button" class="btn btn-primary" aria-label="Rechercher une formation"><i class="icon fa fa-search"></i></button>
+                <div class="trainings-reset-filters">
+                <button class="btn btn-secondary btn-sm" id="trainings-reset-filters_button" aria-label="Effacer les filtres">
+                    Effacer les filtres
+                </button>
+            </div>
+            </div>
+            
 
         <div id="trainings-filters" class="trainings-filters">
 
@@ -64,11 +79,6 @@
 
         <div class="trainings-grid">
             <h2 id="trainings-found"><span id="trainings-count" aria-live="polite"></span></h2>
-            <form action="" method="post" id="trainings-export" target="_blank">
-                <button type="submit" title="{{# str}} toexportbuttontitle, local_catalog {{/str}}">
-                    {{# pix }} up-right-from-square, local_catalog {{/ pix }} {{# str}} toexport, local_catalog {{/str}} (<span id="trainings-export-number"></span>)
-                </button>
-            </form>
             <div class="" id="trainings-tile">
                 {{> local_mentor_specialization/catalog/training-tile }}
             </div>

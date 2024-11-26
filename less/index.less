@@ -56,68 +56,78 @@
       border-radius: 4px 4px 0 0;
       right: 22px;
       z-index: 1;
-
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      
       @media (max-width: 1024px) {
         text-align: center;
         right: 0;
       }
-
+      
       @media (max-width: 767px) {
-        display: -webkit-flex;
+        display: flex;
         text-align: center;
         position: relative;
         right: auto;
+        flex-direction: column;
+        align-items: flex-start;
       }
-
+      
       #search {
         width: 386px;
         background-color: #f8f8f8;
         border-top-right-radius: 0;
-        float: left;
         height: 40px;
-
+        margin-right: 8px;
+        
         @media (max-width: 1024px) {
           max-width: 300px;
         }
-
+        
         @media (max-width: 767px) {
           max-width: none;
-          width: ~"calc( 100% - 44px)";
+          width: 100%;
+          margin-right: 0;
+          margin-bottom: 8px;
         }
-
+        
         &:focus-visible {
           border-radius: 0;
           border: 2px solid #2a7ffe !important;
           outline: none;
         }
-
       }
-
+      
       #search-button {
         width: 40px;
         height: 40px;
         text-align: center;
         border-top-right-radius: 4px !important;
         padding: 0 !important;
-        float: right;
-
+        
         @media (max-width: 767px) {
-          margin-left: -4px;
+          margin-left: 0;
         }
-
+        
         .icon {
           margin: 0;
           font-size: 18px !important;
         }
       }
-
+      
       #search, #search-button {
         border-bottom: 2px solid #000091 !important;
         vertical-align: middle;
-
+        
         @media (max-width: 767px) {
           float: none;
         }
+      }
+      
+      .trainings-reset-filters {
+        margin-right: 8px;
+        order: -1;
       }
     }
 
@@ -581,6 +591,28 @@
       }
     }
   }
+
+  #trainings-export {
+        float: right;
+        button {
+          background-color: transparent;
+          color: #000091;
+          font-size: 16px;
+          border: none;
+          padding: 0;
+        }
+        
+        .icon {
+          margin-right: 6px;
+          margin-bottom: 4px;
+        }
+
+        &:focus,
+        &:focus-visible,
+        &:hover {
+          outline: none;
+        }
+      }
 
   .edadmin-modal {
     box-shadow: none;

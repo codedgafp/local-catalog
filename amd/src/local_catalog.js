@@ -79,6 +79,12 @@ define([
             });
 
             this.initExportTraining();
+
+            // Reset filters & search
+            $('#trainings-reset-filters_button').on('click', function() {
+                that.resetAll();
+            });
+            
         },
 
         /**
@@ -785,7 +791,6 @@ define([
                     title: M.util.get_string('exportpdfformat', 'local_catalog'),
                     buttons: buttons
                 });
-        
         },
         /**
          * Restore search and filter state from cookies
@@ -827,6 +832,33 @@ define([
                     console.error('Error parsing saved filters', e);
                 }
             }
+        },
+        
+        /**
+         * Reset all filters and search
+         */
+        resetAll: function() {
+            $('#search').val('');
+
+            this.selectedFilters = {
+                entities: [],
+                collections: []
+            };
+
+            this.initOffset = this.nbResultsPerScroll;
+
+            $('#collections button, #entities button').removeClass('selected');
+
+            cookie.create('catalogSearch', JSON.stringify(''));
+            cookie.create('catalogFilters', JSON.stringify(this.selectedFilters));
+
+            document.title = this.basePageTitle;
+
+            this.searchWithFilters();
+
+            this.setFirstTileFocus();
+
+            this.updateLoader();
         }
     };
 
