@@ -82,13 +82,18 @@ define([
 
             // Reset filters & search
             $('#trainings-reset-filters_button').on('click', function() {
-                that.resetAll();
+                that.resetAllFilters();
+                that.manageResetFiltersButtonVisibility();
             });
             
             // Call restore function when page loads
             $(document).ready(function() {
                 that.scrollToTraining();
             });
+
+            // Manage reset filters button visibility
+            this.manageResetFiltersButtonVisibility();
+            
         },
 
         /**
@@ -493,10 +498,31 @@ define([
             // Manage click on filters.
             $('#collections button, #entities button').on('click', function () {
                 that.selectFilter(this);
+                // Back to top page when updating filters 
+                window.scrollTo(0, 0);
             });
 
             // Update page title.
             this.updatePageTitle();
+
+            // Update reset filters visibility
+            this.manageResetFiltersButtonVisibility();
+        },
+
+        /**
+         * Hide or show Reset filters button
+         */
+        manageResetFiltersButtonVisibility: function (){
+            $(document).ready(()=> {
+                filters = this.getFiltersData();
+                collections = filters.collections;
+                entities = filters.entities;
+                if((collections != 'undefined' && collections.length != 0) || (entities != 'undefined' && entities.length != 0)){
+                    $('#trainings-reset-filters_button').css('display', 'inline-block');
+                }else{
+                    $('#trainings-reset-filters_button').css('display', 'none');
+                }
+            });
         },
 
         /**
@@ -800,7 +826,12 @@ define([
          * Restore search and filter state from cookies
         */
         restoreCookieState: function() {
-            // Restore search text from cookies
+            // Limit the filters restoration only if we come frome the training 
+            const trainingUrlPattern = new RegExp(`${M.cfg.wwwroot}/local/catalog/pages/training\\.php\\?trainingid=(\\d+)`);
+            if (!trainingUrlPattern.test(document.referrer)){
+                return;
+            }
+            
             var savedSearch = cookie.read('catalogSearch');
             if (savedSearch) {
                 try {
@@ -841,7 +872,7 @@ define([
         /**
          * Reset all filters and search
          */
-        resetAll: function() {
+        resetAllFilters: function() {
             $('#search').val('');
 
             this.selectedFilters = {
