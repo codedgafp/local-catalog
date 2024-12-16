@@ -60,6 +60,7 @@ define([
             // Search and filter on click.
             $('#search-button').on('click', function () {
                 that.searchByText();
+                that.manageResetFiltersButtonVisibility();
             });
 
             // Search and filter on enter keypress.
@@ -517,7 +518,7 @@ define([
                 filters = this.getFiltersData();
                 collections = filters.collections;
                 entities = filters.entities;
-                if((collections != 'undefined' && collections.length != 0) || (entities != 'undefined' && entities.length != 0)){
+                if((collections != 'undefined' && collections.length != 0) || (entities != 'undefined' && entities.length != 0) || $('#search').val() != ""){
                     $('#trainings-reset-filters_button').css('display', 'inline-block');
                 }else{
                     $('#trainings-reset-filters_button').css('display', 'none');
@@ -902,13 +903,13 @@ define([
             if(!trainingId){
                 trainingId = sessionStorage.getItem('selectedTrainingIdCatalog');
             }
-            
             const trainingUrl = M.cfg.wwwroot + `/local/catalog/pages/training.php?trainingid=${trainingId}`;
-            if(!trainingId || document.referrer !== trainingUrl){
+            lastVisitedUrl = sessionStorage.getItem('lastVisitedUrl');
+
+            if(!trainingId || !lastVisitedUrl || lastVisitedUrl !== trainingUrl){
                 return;
             }
 
-            
             let trainingLink = document.querySelector(`a[data-training-id="${trainingId}"]`);
             
             const originalAjaxReady = $(window).data('ajaxready');
