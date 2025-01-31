@@ -271,18 +271,21 @@ define([
                     var buttons = [];
 
                     // Add access session button if user is enrol to sesison.
-                    if (sessionData.isenrol && (!sessionData.isopenedregistration || sessionData.istutor)) {
+                    if (sessionData.isenrol) {
+                        let buttondata = !sessionData.isopenedregistration || sessionData.istutor
+                            ? {'text': 'access', 'href': sessionData.courseurl}
+                            : {'text': 'unsubscribe', 'href': sessionData.unenrolurl}
+
                         buttons.push({
-                            // Access button
-                            text: M.util.get_string('access', 'local_catalog'),
+                            text: M.util.get_string(buttondata.text, 'local_catalog'),
                             id: 'confirm-move-session',
                             class: "btn btn-primary",
                             click: function () {
-                                window.location.href = sessionData.courseurl;
+                                window.location.href = buttondata.href;
                             }
                         });
-                        // Add enrolment button if self enrol is enable to session.
                     } else if (sessionData.isselfenrolment) {
+                        // Add enrolment button if self enrol is enable to session.
                         buttons.push({
                             // Remove button
                             text: M.util.get_string('register', 'local_catalog'),
@@ -293,9 +296,6 @@ define([
                             }
                         });
                     }
-
-
-
 
                     // Add cancel button.
                     buttons.push({

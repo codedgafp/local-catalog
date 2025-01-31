@@ -42,6 +42,7 @@ class training_renderer extends \plugin_renderer_base {
      * @throws \moodle_exception
      */
     public function display($training, $sessions) {
+        global $CFG;
 
         global $SESSION, $PAGE;
 
@@ -120,6 +121,13 @@ class training_renderer extends \plugin_renderer_base {
                 'enrolid' => $this->get_enrol_id($training->session->id)
             ]);
         } else {
+            foreach($sessions as $key => $session) {
+                $unsubscribeurl = new moodle_url("/enrol/self/unenrolself.php", [
+                    'enrolid' => $this->get_enrol_id($session->id)
+                ]);
+                $sessions[$key]->unenrolurl = $unsubscribeurl->out();
+            }
+
             // Set sessions data.
             $training->sessions = $sessions;
         }
@@ -133,6 +141,7 @@ class training_renderer extends \plugin_renderer_base {
         ], 'format_edadmin');
         $this->page->requires->strings_for_js([
             'register',
+            'unsubscribe',
             'access',
             'toconnect',
             'nologginsessionaccess',
@@ -150,6 +159,30 @@ class training_renderer extends \plugin_renderer_base {
         // Call template.
         return $this->render_from_template(\local_mentor_core\catalog_api::get_training_template('local_catalog/training'),
             $training);
+    }
+
+    /**
+     * Get the enrol id depends of the session id
+     * 
+     * @param int $sessionid
+     * 
+     * @return int
+     */
+    private function get_enrol_id(int $sessionid): int
+    {
+        global $DB;
+
+        $sql = "SELECT e.id
+                FROM {enrol} e
+                INNER JOIN {course} c ON e.courseid = c.id
+                INNER JOIN {session} s ON c.shortname = s.courseshortname
+                WHERE s.id = :sessionid
+                AND e.enrol = 'self'
+                ";
+
+        $params["sessionid"] = $sessionid;
+
+        return $DB->get_field_sql($sql, $params);
     }
 
     /**

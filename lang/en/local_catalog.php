@@ -98,6 +98,7 @@ $string['inprogress'] = 'En cours';
 $string['modality'] = 'Modalité : {$a}';
 $string['access'] = 'Accéder';
 $string['registration'] = 'Inscription';
+$string['unsubscribe'] = 'Désinscription';
 $string['onlineduration'] = 'Durée en ligne {$a}';
 $string['online'] = 'En ligne';
 $string['presenceduration'] = 'Durée en présence {$a}';
