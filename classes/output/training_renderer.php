@@ -25,6 +25,8 @@
 
 namespace local_catalog\output;
 
+use moodle_url;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/local/catalog/lib.php');
@@ -40,6 +42,14 @@ class training_renderer extends \plugin_renderer_base {
      * @throws \moodle_exception
      */
     public function display($training, $sessions) {
+
+        global $SESSION, $PAGE;
+
+        // Systematic redirection to the training sheet after login in case of redirection after login to subscribe to a session.
+        // Set wantsurl to the training sheet.
+        if(!isloggedin() && !isguestuser()){
+            $SESSION->wantsurl = new moodle_url($PAGE->url);
+        }
 
         // Get all collections.
         $collectionsnames = local_mentor_specialization_get_collections();
