@@ -143,7 +143,14 @@
             </div>
         {{/hasselfregistrationkey}}
         <div class="enrolment-warning"></div>
-        <button id="confirm-move-session" class="btn btn-primary">{{# str }} registration, local_catalog {{/ str }}</button>
+        {{# isenrol }}
+            {{^ hasaccess}}
+                <a id="confirm-move-session" class="btn btn-primary" href="{{ unenrolurl }}">{{# str }} unsubscribe, local_catalog {{/ str }}</a>
+            {{/ hasaccess }}
+        {{/ isenrol }}
+        {{^ isenrol}}
+            <button id="confirm-move-session" class="btn btn-primary">{{# str }} registration, local_catalog {{/ str }}</button>
+        {{/ isenrol }}
     {{/ isselfenrolment }}
 
     {{# isotherenrolement }}

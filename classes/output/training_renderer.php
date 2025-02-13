@@ -115,6 +115,10 @@ class training_renderer extends \plugin_renderer_base {
                     }
                 }
             }
+
+            $training->unenrolurl = new moodle_url("/enrol/self/unenrolself.php", [
+                'enrolid' => $this->get_enrol_id($training->session->id)
+            ]);
         } else {
             // Set sessions data.
             $training->sessions = $sessions;
