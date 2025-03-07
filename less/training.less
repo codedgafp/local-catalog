@@ -1,6 +1,8 @@
 @header-link-and-certificate-with: 220px;
 @teaser-part-width: 350px;
 @teaser-part-width-tablet: 300px;
+@small-screen : 320px;
+@max-width-characters-small-screen : 23ch;
 
 .catalog-pages-training {
 
@@ -792,6 +794,15 @@
 
   &.hide {
     display: none;
+  }
+}
+
+@media screen and (max-width: @small-screen) {
+  .producer-data .name .font-weight-bold,
+  .producer-data .contact .font-weight-bold {
+    max-width: @max-width-characters-small-screen;
+    word-wrap: break-word;
+    display: inline-block;
   }
 }
 
