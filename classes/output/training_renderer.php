@@ -118,14 +118,19 @@ class training_renderer extends \plugin_renderer_base {
             }
 
             $training->unenrolurl = new moodle_url("/enrol/self/unenrolself.php", [
-                'enrolid' => $this->get_enrol_id($training->session->id)
+                'enrolid' => $this->get_enrol_id($training->session->id),
+                'sesskey' => sesskey(),
+                'confirm' => 1
             ]);
+             $training->unenrolurl = str_replace('&amp;', '&', $training->unenrolurl->out());
         } else {
             foreach($sessions as $key => $session) {
                 $unsubscribeurl = new moodle_url("/enrol/self/unenrolself.php", [
-                    'enrolid' => $this->get_enrol_id($session->id)
+                    'enrolid' => $this->get_enrol_id($session->id),
+                    'sesskey' => sesskey(),
+                    'confirm' => 1
                 ]);
-                $sessions[$key]->unenrolurl = $unsubscribeurl->out();
+                $sessions[$key]->unenrolurl = str_replace('&amp;', '&', $unsubscribeurl->out());
             }
 
             // Set sessions data.
