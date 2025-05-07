@@ -25,7 +25,7 @@ define([
             this.sessionStorageSelectedTraining = 'mentor_local_catalog_selected_training';
 
             // Get list of available trainings.
-            var listAvailableTrainingsData = JSON.parse($('#available-trainings').html());
+            var listAvailableTrainingsData = JSON.parse(document.getElementById('available-trainings').textContent);;
             localCatalog.listAvailableTrainings = [];
             listAvailableTrainingsData.forEach(function (element) {
                 localCatalog.listAvailableTrainings[element.id] = element;
@@ -137,7 +137,7 @@ define([
             var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
 
             // Load more results on scroll.
-            $(window).scroll(function () {
+            $(document).on('scroll', function () {
 
                 that.updateLoader();
 
