@@ -23,6 +23,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_mentor_core\session_api;
+
 // Include config.php.
 require_once('../../../config.php');
 
@@ -31,6 +33,15 @@ require_once($CFG->dirroot . '/local/mentor_core/api/training.php');
 require_once($CFG->dirroot . '/local/mentor_core/api/catalog.php');
 
 $trainingid = required_param('trainingid', PARAM_INT);
+
+$useravailablesessions = session_api::get_user_available_sessions($USER->id);
+$availablesessions = array_filter($useravailablesessions, function ($session) use ($trainingid) {
+    return $session->trainingid == $trainingid;
+});
+
+if (empty($availablesessions)) {
+    redirect($CFG->wwwroot, get_string('nopermissions', 'local_catalog'));
+}
 
 $url = new moodle_url('/local/catalog/pages/training.php', ["trainingid" => $trainingid]);
 
