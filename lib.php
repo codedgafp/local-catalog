@@ -92,6 +92,10 @@ function local_catalog_clean_string($text) {
         '/Ç/' => 'C',
         '/ñ/' => 'n',
         '/Ñ/' => 'N',
+        '/œ/u' => 'oe',
+        '/Œ/u' => 'OE',
+        '/æ/u' => 'ae',
+        '/Æ/u' => 'AE',
         '/–/' => '-', // UTF-8 hyphen to "normal" hyphen.
         '/[’‘‹›‚]/u' => ' ', // Literally a single quote.
         '/[“”«»„]/u' => ' ', // Double quote.
