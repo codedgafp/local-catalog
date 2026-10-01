@@ -149,3 +149,5 @@ $string['catalog:offeraccess'] = 'Donne accès à l\'offre de formation';
 $string['usercollectionnotif:sucess'] = "Les notifications ont été mises à jour avec succès.";
 
 $string['catalog_subscription_management_text'] = 'Vous serez informés chaque semaine par mél des nouvelles sessions disponibles dans une collection.';
+
+$string['no_activities_found'] = 'Aucune activité n\'a été trouvé. L\'export a échoué.';

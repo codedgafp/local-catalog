@@ -44,10 +44,17 @@ $trainingsid = [];
 // Check if training has available session.
 foreach ($selectedtrainingsid as $trainingid) {
     $training = \local_mentor_core\training_api::get_training($trainingid);
+
+    if (!$training) continue;
+
     if ($training->is_available_to_user()) {
         // Add trainings to export.
         $trainingsid[] = $trainingid;
     }
+}
+
+if (empty($trainingsid)) {
+    throw new \moodle_exception(get_string('no_activities_found', 'local_catalog'), 'local_catalog');
 }
 
 // Create new PDF document.
