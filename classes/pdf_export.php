@@ -254,6 +254,8 @@ class pdf_export extends \TCPDF {
      * @return void
      */
     public function AddIntro() {
+        global $CFG;
+
         $this->setPage(1);
         $tagvs = array(
             'br' => [['h' => 0.1]],
@@ -261,11 +263,14 @@ class pdf_export extends \TCPDF {
         $this->setHtmlVSpace($tagvs);
         $this->setCellHeightRatio(1.4);
 
+        $mainentity = \local_mentor_core\profile_api::get_user_main_entity();
+        $contactcourseurl = $mainentity->contact_page_is_initialized() ? $mainentity->get_contact_page_url() : "$CFG->wwwroot/fr/contact";
+
         $html = '<p>Les éléments des pages suivantes sont extraits de l\'offre de formation de la plateforme interministérielle Mentor en date du '.date("d/m/Y").' .</p>
- 
+
         <p>Cette offre évolue en continu avec des contributions de toute la communauté interministérielle.</p>
-      
-        <p>Pour plus de compléments, n\'hésitez pas à contacter le référent Mentor de votre administration <a href="https://mentor.gouv.fr/local/staticpage/view.php?page=contact">(page de contact)</a>.</p>';
+
+        <p>Pour plus de compléments, n\'hésitez pas à contacter le référent Mentor de votre administration <a href="' . $contactcourseurl . '">(page de contact)</a>.</p>';
         $this->setY(48);
         $this->writeHTMLCell(150, '', '', $this->getY(), $html, 0, 1);
     }
